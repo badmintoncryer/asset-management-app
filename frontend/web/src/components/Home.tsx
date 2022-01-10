@@ -3,6 +3,7 @@ import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
 
+import AssetList from './AssetList'
 import Chart from './Chart'
 import TotalAssets from './TotalAssets'
 import { getTime } from 'api/api'
@@ -45,6 +46,11 @@ const Home: React.FC = () => {
               }}
             >
               <TotalAssets />
+            </Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+              <AssetList />
             </Paper>
           </Grid>
         </Grid>
