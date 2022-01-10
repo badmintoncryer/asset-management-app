@@ -16,15 +16,15 @@ function createData(time: string, amount?: number) {
 }
 
 const data = [
-  createData('00:00', 0),
-  createData('03:00', 300),
-  createData('06:00', 600),
-  createData('09:00', 800),
-  createData('12:00', 1500),
-  createData('15:00', 2000),
-  createData('18:00', 2400),
-  createData('21:00', 2400),
-  createData('24:00', undefined),
+  createData('2021/01/01', 0),
+  createData('2021/02/01', 300),
+  createData('2021/03/01', 600),
+  createData('2021/04/01', 800),
+  createData('2021/05/01', 1500),
+  createData('2021/06/01', 2000),
+  createData('2021/07/01', 2400),
+  createData('2021/08/01', 2400),
+  createData('2021/09/01', undefined),
 ]
 
 export default function Chart() {
@@ -32,7 +32,7 @@ export default function Chart() {
 
   return (
     <React.Fragment>
-      <Title>Today</Title>
+      <Title>総資産額推移</Title>
       <ResponsiveContainer>
         <LineChart
           data={data}
@@ -61,7 +61,7 @@ export default function Chart() {
                 ...theme.typography.body1,
               }}
             >
-              Sales ($)
+              総資産額 ($)
             </Label>
           </YAxis>
           <Line
