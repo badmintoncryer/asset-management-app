@@ -4,6 +4,7 @@ import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
 
 import Chart from './Chart'
+import TotalAssets from './TotalAssets'
 import { getTime } from 'api/api'
 
 const Home: React.FC = () => {
@@ -32,6 +33,18 @@ const Home: React.FC = () => {
               }}
             >
               <Chart />
+            </Paper>
+          </Grid>
+          <Grid item xs={12} md={4} lg={3}>
+            <Paper
+              sx={{
+                p: 2,
+                display: 'flex',
+                flexDirection: 'column',
+                height: 240,
+              }}
+            >
+              <TotalAssets />
             </Paper>
           </Grid>
         </Grid>
