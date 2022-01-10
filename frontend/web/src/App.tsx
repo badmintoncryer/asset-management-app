@@ -6,8 +6,9 @@ import {
   Theme,
 } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
+import Home from './components/Home'
 import AppBar from './components/AppBar'
 import logo from './logo.svg'
 import './App.css'
@@ -19,7 +20,7 @@ import {
   AmplifyAuthenticator,
   AmplifySignIn,
 } from '@aws-amplify/ui-react'
-import { getTime } from './api'
+import { getTime } from './api/api'
 
 Amplify.configure({
   Auth: {
@@ -75,6 +76,11 @@ const App: React.FC = () => {
       <CssBaseline />
       <BrowserRouter>
         <AppBar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          {/* <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home />} /> */}
+        </Routes>
         <div className="App">
           <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
