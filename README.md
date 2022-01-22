@@ -1,5 +1,12 @@
 # React SPA App with Serverless Backend and Congito Auth Demo
 
+## 開発手順
+### frontendアップデート
+1. frontend/webのコンテンツをアップデート
+2. frontend/web内で $yarn build
+3. frontend/provisioning内で $cdk deploy --all
+   1. 必要に応じてAWS CLIの認証情報を指定 (ex. --profile private)
+
 ## Overview
 
 This sample shows how to make a SPA application with serverless backend by AWS Cloud Development Kit (CDK). You can also see from this sample how to control access to API with Amazon Cognito and attach WAF to API Gateway and CloudFront.
