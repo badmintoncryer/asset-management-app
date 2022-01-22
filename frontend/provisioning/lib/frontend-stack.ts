@@ -1,9 +1,9 @@
 import * as cdk from "@aws-cdk/core";
-import * as iam from "@aws-cdk/aws-iam";
+// import * as iam from "@aws-cdk/aws-iam";
 import * as cloudfront from "@aws-cdk/aws-cloudfront";
 import * as s3 from "@aws-cdk/aws-s3";
 import * as s3deploy from "@aws-cdk/aws-s3-deployment";
-import * as customResources from "@aws-cdk/custom-resources";
+// import * as customResources from "@aws-cdk/custom-resources";
 import * as path from "path";
 
 export class FrontendStack extends cdk.Stack {
@@ -23,16 +23,16 @@ export class FrontendStack extends cdk.Stack {
       "WebsiteIdentity"
     );
     websiteBucket.grantRead(websiteIdentity);
-    const webAclRef = new SsmParameterReader(this, "WebAclArnParameterReader", {
-      parameterName: "WebAclArnParameter",
-      region: "us-east-1",
-    }).stringValue;
+    // const webAclRef = new SsmParameterReader(this, "WebAclArnParameterReader", {
+    //   parameterName: "WebAclArnParameter",
+    //   region: "us-east-1",
+    // }).stringValue;
 
     const websiteDistribution = new cloudfront.CloudFrontWebDistribution(
       this,
       "WebsiteDistribution",
       {
-        webACLId: webAclRef,
+        // webACLId: webAclRef,
         errorConfigurations: [
           {
             errorCachingMinTtl: 300,
@@ -75,63 +75,63 @@ export class FrontendStack extends cdk.Stack {
   }
 }
 
-interface SsmParameterReaderProps {
-  parameterName: string;
-  region: string;
-}
+// interface SsmParameterReaderProps {
+//   parameterName: string;
+//   region: string;
+// }
 
-class SsmParameterReader extends cdk.Construct {
-  private reader: customResources.AwsCustomResource;
+// class SsmParameterReader extends cdk.Construct {
+//   private reader: customResources.AwsCustomResource;
 
-  get stringValue(): string {
-    return this.getParameterValue();
-  }
+//   get stringValue(): string {
+//     return this.getParameterValue();
+//   }
 
-  constructor(
-    scope: cdk.Construct,
-    name: string,
-    props: SsmParameterReaderProps
-  ) {
-    super(scope, name);
+//   constructor(
+//     scope: cdk.Construct,
+//     name: string,
+//     props: SsmParameterReaderProps
+//   ) {
+//     super(scope, name);
 
-    const { parameterName, region } = props;
+//     const { parameterName, region } = props;
 
-    const customResource = new customResources.AwsCustomResource(
-      scope,
-      `${name}CustomResource`,
-      {
-        policy: customResources.AwsCustomResourcePolicy.fromStatements([
-          new iam.PolicyStatement({
-            effect: iam.Effect.ALLOW,
-            actions: ["ssm:GetParameter*"],
-            resources: [
-              cdk.Stack.of(this).formatArn({
-                service: "ssm",
-                region,
-                resource: "parameter",
-                resourceName: parameterName.replace(/^\/+/, ""),
-              }),
-            ],
-          }),
-        ]),
-        onUpdate: {
-          service: "SSM",
-          action: "getParameter",
-          parameters: {
-            Name: parameterName,
-          },
-          region,
-          physicalResourceId: customResources.PhysicalResourceId.of(
-            Date.now().toString()
-          ),
-        },
-      }
-    );
+//     const customResource = new customResources.AwsCustomResource(
+//       scope,
+//       `${name}CustomResource`,
+//       {
+//         policy: customResources.AwsCustomResourcePolicy.fromStatements([
+//           new iam.PolicyStatement({
+//             effect: iam.Effect.ALLOW,
+//             actions: ["ssm:GetParameter*"],
+//             resources: [
+//               cdk.Stack.of(this).formatArn({
+//                 service: "ssm",
+//                 region,
+//                 resource: "parameter",
+//                 resourceName: parameterName.replace(/^\/+/, ""),
+//               }),
+//             ],
+//           }),
+//         ]),
+//         onUpdate: {
+//           service: "SSM",
+//           action: "getParameter",
+//           parameters: {
+//             Name: parameterName,
+//           },
+//           region,
+//           physicalResourceId: customResources.PhysicalResourceId.of(
+//             Date.now().toString()
+//           ),
+//         },
+//       }
+//     );
 
-    this.reader = customResource;
-  }
+//     this.reader = customResource;
+//   }
 
-  private getParameterValue(): string {
-    return this.reader.getResponseField("Parameter.Value");
-  }
-}
+//   private getParameterValue(): string {
+//     return this.reader.getResponseField("Parameter.Value");
+//   }
+// }
